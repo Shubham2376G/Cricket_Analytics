@@ -1,25 +1,17 @@
 from scenedetect import SceneManager, open_video, detect, ContentDetector
 from scenedetect.video_splitter import split_video_ffmpeg
 from utils.segment import segment_video, calculate_ssim, extract_frames, classify_video, classify_all_videos
+from models.poseformer.lib.preprocess import h36m_coco_format, revise_kpts
+# from models.poseformer.lib.hrnet.gen_kpts import gen_video_kpts as hrnet_pose
 from utils.detection import detect
+from models.poseformer.model.poseformer import Model_poseformer
+from models.poseformer.common.camera import *
+from utils.full_animation import *
 from utils.pose_estimationv1 import *
+from models.poseformer.vis_poseformer import *
+from args.arg import get_args
+from pathlib import Path
 import os
-
-HOME = os.getcwd()
-print(HOME)
-
-# # Rally segmentation
-# segment_video("demo/Cric Test2.mp4", "demo/segments_2")
-# classify_all_videos("demo/segments_2")
-#
-# #Player detection: Batsman - Bowler
-# detect("demo/3d_pose/sim", "demo/3d_pose/sim/bounding_boxes")
-
-#Pose estimation: Batsman - Bowler
-pose_estimation("cric.mp4","cric1.json","output2")
-convert_json_to_h36m_npz(json_path, output_dir)
-
-
 import json
 import numpy as np
 import matplotlib.pyplot as plt
@@ -27,56 +19,51 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.animation as animation
 
 
-# Load pose estimation JSON
-def load_pose_data(json_path):
-    with open(json_path, 'r') as f:
-        data = json.load(f)
-    return data
+def main():
+    args = get_args()
 
+    input_video_path = Path(args.input)
+    base_dir = input_video_path.parent
 
-# Define skeleton connections
-SKELETON = [[0, 1], [1, 2], [2, 3], [0, 4], [4, 5],
-                   [5, 6], [0, 7], [7, 8], [8, 9], [9, 10],
-                   [8, 11], [11, 12], [12, 13], [8, 14], [14, 15], [15, 16]]
+    segments_path = base_dir / "segments"
+    bbox_output_dir = base_dir / "bounding_boxes"
+    pose_output_dir = base_dir / "pose_output"
+    animation_output_dir = base_dir / "animation_output"
 
+    # Ensure all output folders exist
+    segments_path.mkdir(exist_ok=True)
+    bbox_output_dir.mkdir(exist_ok=True)
+    pose_output_dir.mkdir(exist_ok=True)
+    animation_output_dir.mkdir(exist_ok=True)
 
-def extract_frames(data):
-    frames = []
-    for frame in data["frames"]:
-        joints = np.array([[j["x"], j["y"], j["z"]] for j in frame["joints"]])
-        frames.append(joints)
-    return frames
+    if args.rally_segment:
+        segment_video(str(input_video_path), str(segments_path))
+        classify_all_videos(str(segments_path))
 
+    if args.player_det:
+        detect(f"{segments_path}/rally_videos", str(bbox_output_dir))
 
-# Animate the 3D skeleton
-def animate_3d_pose(frames, elev=30, azim=60):
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    ax.set_xlim([-0.5, 0.5])
-    ax.set_ylim([-0.5, 0.5])
-    ax.set_zlim([0, 1])
-    ax.view_init(elev=elev, azim=azim)
-    # Adding axis labels
-    ax.set_xlabel("X Axis", fontsize=12)
-    ax.set_ylabel("Y Axis", fontsize=12)
-    ax.set_zlabel("Z Axis", fontsize=12)
+    if args.pose_est:
+        # Loop through all .mp4 files in bounding_boxes/
+        for video_file in bbox_output_dir.glob("*.mp4"):
+            json_file = video_file.with_suffix(video_file.suffix + ".json")
+            if json_file.exists():
+                print(f"Running pose estimation for {video_file.name}")
+                pose_estimation(str(video_file), str(json_file), f"{str(pose_output_dir)}/{video_file.stem}","BO")
+                pose_estimation(str(video_file), str(json_file), f"{str(pose_output_dir)}/{video_file.stem}", "BM 1")
+                convert_json_to_h36m_npz(str(video_file), f"{str(pose_output_dir)}/{video_file.stem}/pose_estimations_BM 1.json", f"{str(pose_output_dir)}/{video_file.stem}", label="BM 1")
+                convert_json_to_h36m_npz(str(video_file), f"{str(pose_output_dir)}/{video_file.stem}/pose_estimations_BO.json", f"{str(pose_output_dir)}/{video_file.stem}", label="BO")
+            else:
+                print(f"Warning: JSON file missing for {video_file.name}, skipping.")
 
-    # Initialize lines for skeleton
-    lines = [ax.plot([], [], [], 'ro-')[0] for _ in SKELETON]
+    if args.animate:
+        print("Generating full animation")
+        for video_file in bbox_output_dir.glob("*.mp4"):
+            print(f"Running full animation for {video_file.name}")
+            get_pose3D(str(video_file), f"{str(pose_output_dir)}/{video_file.stem}/keypointsBM 1.npz",f"{str(animation_output_dir)}/{video_file.stem}/batsman")
+            get_pose3D(str(video_file), f"{str(pose_output_dir)}/{video_file.stem}/keypointsBO.npz",
+                       f"{str(animation_output_dir)}/{video_file.stem}/bowler")
 
-    def update(frame_idx):
-        joints = frames[frame_idx]
-        for line, (i, j) in zip(lines, SKELETON):
-            line.set_data([joints[i, 0], joints[j, 0]], [joints[i, 1], joints[j, 1]])
-            line.set_3d_properties([joints[i, 2], joints[j, 2]])
-        return lines
-
-    ani = animation.FuncAnimation(fig, update, frames=len(frames), interval=50, blit=False)
-    plt.show()
-    ani.save("pose_estimation.mp4", writer="ffmpeg", fps=20)
-
-# Main execution
-json_path = "demo/3d_pose/sim/all_poses_3d.json"  # Update this with your JSON file path
-data = load_pose_data(json_path)
-frames = extract_frames(data)
-animate_3d_pose(frames, elev=15, azim=70)
+        print('Generating animation successful!')
+if __name__ == "__main__":
+    main()

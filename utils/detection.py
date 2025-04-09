@@ -5,11 +5,10 @@ import supervision as sv
 from ultralytics import YOLO
 import json
 
-
 def detect(input_dir, output_dir):
     os.makedirs(output_dir, exist_ok=True)
 
-    model = YOLO('runs/detect/train/weights/best.pt')
+    model = YOLO('models/YOLO_v12/train/weights/best.pt')
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)

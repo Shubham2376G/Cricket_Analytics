@@ -7,9 +7,7 @@ import numpy as np
 from skimage.metrics import structural_similarity as ssim
 
 def segment_video(video_path, output_dir):
-    # Input and output file paths
-    # video_path = "Cric Test2.mp4"
-    # output_dir = "segments_2"
+
 
     # Open video and set up scene manager
     video = open_video(video_path)
@@ -55,7 +53,7 @@ def extract_frames(video_path, frame_interval=30):
     return frames
 
 
-def classify_video(video_path, threshold=0.5, reference_img_path="demo/reference.png"):
+def classify_video(video_path, threshold=0.5, reference_img_path="assets/reference.png"):
     """Classify video based on frame similarity with reference image."""
     # Load reference image
     reference_img = cv2.imread(reference_img_path, cv2.IMREAD_GRAYSCALE)
@@ -70,7 +68,7 @@ def classify_video(video_path, threshold=0.5, reference_img_path="demo/reference
 def classify_all_videos(input_dir):
 
     rally_dir = f"{input_dir}/rally_videos/"
-    no_rally_dir = f"{input_dir}no_rally_videos/"
+    no_rally_dir = f"{input_dir}/no_rally_videos/"
 
     os.makedirs(rally_dir, exist_ok=True)
     os.makedirs(no_rally_dir, exist_ok=True)
@@ -79,9 +77,14 @@ def classify_all_videos(input_dir):
     for video_file in os.listdir(input_dir):
         video_path = os.path.join(input_dir, video_file)
 
+        # Skip directories
+        if os.path.isdir(video_path):
+            continue
+
         if classify_video(video_path):
             shutil.move(video_path, os.path.join(rally_dir, video_file))
             print(f"Moved {video_file} to rally_videos/")
         else:
             shutil.move(video_path, os.path.join(no_rally_dir, video_file))
             print(f"Moved {video_file} to no_rally_videos/")
+
