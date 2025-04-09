@@ -353,7 +353,7 @@ def synchronize_frames(batsman_frames, bowler_frames):
 
 
 # Main execution
-def main():
+def visualanimation():
     # Load batsman data
     batsman_json_path = "demo/3d_pose/sim/all_poses_3d.json"  # Update with your JSON file path
     batsman_data = load_pose_data(batsman_json_path)
@@ -375,7 +375,3 @@ def main():
 
     # Save as HTML for sharing
     # pio.write_html(fig, "cricket_dual_animation.html")
-
-
-if __name__ == "__main__":
-    main()
