@@ -1,2 +1,60 @@
-.git
-.idea
+# Ignore IDE settings
+.idea/
+.vscode/
+
+# Ignore Git folder (though this is usually not needed—Git doesn't track itself)
+.git/
+
+# Node modules (if you're using Node.js)
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.egg-info/
+*.egg
+.env
+.venv/
+env/
+venv/
+pip-log.txt
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Build outputs
+dist/
+build/
+*.out
+*.o
+*.class
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Compiled files
+*.exe
+*.dll
+*.so
+*.a
+*.dylib
+
+# Package installers
+*.deb
+*.rpm
+*.msi
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+*.7z
