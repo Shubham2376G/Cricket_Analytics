@@ -51,8 +51,18 @@ def detect(input_dir, output_dir):
 
             frame_detections = []
             for detection in detections:
-                x1, y1, x2, y2 = detection.xyxy
-                frame_detections.append({"x1": x1, "y1": y1, "x2": x2, "y2": y2, "label": detection.label})
+                print(detection)  # Check the structure of detection
+                bbox, _, _, _, _, metadata = detection  # Unpack the tuple
+                x1, y1, x2, y2 = bbox  # Extract the bounding box coordinates
+                label = metadata.get("class_name", "Unknown")  # Extract the label safely
+
+                frame_detections.append({
+                    "x1": float(x1),
+                    "y1": float(y1),
+                    "x2": float(x2),
+                    "y2": float(y2),
+                    "label": label
+                })
 
             frame_data.append({"frame": frame_count, "detections": frame_detections})
             frame_count += 1
