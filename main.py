@@ -2,7 +2,6 @@ from scenedetect import SceneManager, open_video, detect, ContentDetector
 from scenedetect.video_splitter import split_video_ffmpeg
 from utils.segment import segment_video, calculate_ssim, extract_frames, classify_video, classify_all_videos
 from models.poseformer.lib.preprocess import h36m_coco_format, revise_kpts
-# from models.poseformer.lib.hrnet.gen_kpts import gen_video_kpts as hrnet_pose
 from utils.detection import detect
 from models.poseformer.model.poseformer import Model_poseformer
 from models.poseformer.common.camera import *
