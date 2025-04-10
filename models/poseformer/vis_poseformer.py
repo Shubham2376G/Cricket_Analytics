@@ -238,7 +238,7 @@ def get_pose3D(video_path,keypoints_path, output_dir):
         ## 2D
         image = show2Dpose(input_2D_no, copy.deepcopy(img))
 
-        output_dir_2D = output_dir + 'pose2D/'
+        output_dir_2D = output_dir + '/pose2D/'
         os.makedirs(output_dir_2D, exist_ok=True)
         cv2.imwrite(output_dir_2D + str(('%04d' % i)) + '_2D.png', image)
 
@@ -250,7 +250,7 @@ def get_pose3D(video_path,keypoints_path, output_dir):
         show3Dpose(post_out, ax)
         frame_data = convert_keypoints_to_dict(post_out, frame_idx=i)
         all_frames_data.append(frame_data)
-        output_dir_3D = output_dir + 'pose3D/'
+        output_dir_3D = output_dir + '/pose3D/'
         os.makedirs(output_dir_3D, exist_ok=True)
         plt.savefig(output_dir_3D + str(('%04d' % i)) + '_3D.png', dpi=200, format='png', bbox_inches='tight')
     final_data = {
@@ -293,7 +293,7 @@ def get_pose3D(video_path,keypoints_path, output_dir):
         ax.set_title("Reconstruction", fontsize=font_size)
 
         ## save
-        output_dir_pose = output_dir + 'pose/'
+        output_dir_pose = output_dir + '/pose/'
         os.makedirs(output_dir_pose, exist_ok=True)
         plt.savefig(output_dir_pose + str(('%04d' % i)) + '_pose.png', dpi=200, bbox_inches='tight')
 

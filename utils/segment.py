@@ -30,7 +30,8 @@ def segment_video(video_path, output_dir):
 
 def calculate_ssim(image1, image2):
     """Compute SSIM similarity between two images."""
-    return ssim(image1, image2)
+    score, _ = ssim(image1, image2, channel_axis=-1, full=True)
+    return score
 
 
 def extract_frames(video_path, frame_interval=30):
@@ -45,7 +46,7 @@ def extract_frames(video_path, frame_interval=30):
             break
         if frame_count % frame_interval == 0:
             gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            gray_frame = cv2.resize(gray_frame, (100, 100))  # Resize
+            # gray_frame = cv2.resize(gray_frame, (100, 100))  # Resize
             frames.append(gray_frame)
         frame_count += 1
 
@@ -53,11 +54,11 @@ def extract_frames(video_path, frame_interval=30):
     return frames
 
 
-def classify_video(video_path, threshold=0.5, reference_img_path="assets/reference.png"):
+def classify_video(video_path, threshold=0.8, reference_img_path="assets/reference.png"):
     """Classify video based on frame similarity with reference image."""
     # Load reference image
     reference_img = cv2.imread(reference_img_path, cv2.IMREAD_GRAYSCALE)
-    reference_img = cv2.resize(reference_img, (100, 100))  # Resize to standard size
+    # reference_img = cv2.resize(reference_img, (100, 100))  # Resize to standard size
     frames = extract_frames(video_path)
     similarities = [calculate_ssim(reference_img, frame) for frame in frames]
 

@@ -20,8 +20,6 @@ __pycache__/
 .venv/
 env/
 venv/
-models/poseformer/lib/checkpoint/yolov3.weights
-models/poseformer/lib/checkpoint/pose_hrnet_w48_384x288.pth
 models/VitPose/model.safetensors
 pip-log.txt
 

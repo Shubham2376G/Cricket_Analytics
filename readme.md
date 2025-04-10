@@ -14,7 +14,7 @@ Cricket_Analytics/
 ├── dataset/                # Dataset storage or loading logic
 ├── demo/                   # Input and output folder for testing
 ├── models/                 # Model checkpoints and architecture files
-├── notebooks/              # Exploratory notebooks
+├── notebooks/              # Jupyter notebooks
 ├── utils/                  # Utility scripts (detailed below)
 ├── videos/                 # Video storage folder
 │
@@ -26,6 +26,10 @@ Cricket_Analytics/
 ---
 
 ## 🚀 Getting Started
+
+### Download pretrained model for pose estimation
+
+The pretrained model can be found in [here](https://drive.google.com/file/d/1kJzGsorMPydMSKOZzFKNYXGWjpmIB4ge/view?usp=sharing), please download it and put it in the 'models/ViTPose' directory. 
 
 ```bash
 # Install dependencies
