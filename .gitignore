@@ -22,6 +22,7 @@ env/
 venv/
 models/VitPose/model.safetensors
 pip-log.txt
+src/
 
 # OS files
 .DS_Store
