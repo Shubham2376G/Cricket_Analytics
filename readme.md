@@ -37,24 +37,30 @@ Cricket_Analytics/
 ---
 
 ## 🎬 Results
-<table align="center">
+<div align="center">
+
+<table>
   <tr>
     <td align="center" colspan="2">
-      <b>Player Detection</b><br>
+      <b>Player Detection</b><br><br>
       <img src="assets/detection.gif" width="900">
     </td>
   </tr>
   <tr>
-    <td align="center" width="50%">
-      <b>3D Animation</b><br>
-      <img src="assets/bowler_3d.gif" width="400">
+    <td align="center" width="100%">
+      <b>3D Animation</b><br><br>
+      <img src="assets/bowler_3d.gif" width="900">
     </td>
-    <td align="center" width="50%">
-      <b>Simulation</b><br>
-      <img src="assets/simulation.gif" width="400">
+      </tr>
+  <tr>
+    <td align="center" width="100%">
+      <b>Simulation</b><br><br>
+      <img src="assets/simulation.gif" width="900">
     </td>
   </tr>
 </table>
+
+</div>
  
 ---
  
