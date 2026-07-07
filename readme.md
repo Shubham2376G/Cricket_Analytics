@@ -43,19 +43,19 @@ Cricket_Analytics/
   <tr>
     <td align="center" colspan="2">
       <b>Player Detection</b><br><br>
-      <img src="assets/detection.gif" width="900">
+      <img src="assets/detection.gif" width="400">
     </td>
   </tr>
   <tr>
     <td align="center" width="100%">
       <b>3D Animation</b><br><br>
-      <img src="assets/bowler_3d.gif" width="900">
+      <img src="assets/bowler_3d.gif" width="400">
     </td>
       </tr>
   <tr>
     <td align="center" width="100%">
       <b>Simulation</b><br><br>
-      <img src="assets/simulation.gif" width="900">
+      <img src="assets/simulation.gif" width="400">
     </td>
   </tr>
 </table>
