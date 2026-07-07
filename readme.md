@@ -37,18 +37,24 @@ Cricket_Analytics/
 ---
 
 ## 🎬 Results
- 
-> Pretrained model weights are **not distributed** in this repository
-> (patent-pending components). The clips/images below showcase the
-> pipeline's output on sample footage.
- 
-| Stage | Output |
-|---|---|
-| Rally Segmentation | *[add a short clip/gif showing rally vs. non-rally classification]* |
-| Player Detection | *[add a frame/clip with bowler + batsman bounding boxes]* |
-| Pose Estimation | *[add a frame/clip with 2D keypoints overlaid]* |
-| 3D Animation | *[add a frame/gif of the 3D pose animation]* |
- 
+<table align="center">
+  <tr>
+    <td align="center" colspan="2">
+      <b>Player Detection</b><br>
+      <img src="assets/detection.gif" width="900">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <b>3D Animation</b><br>
+      <img src="assets/bowler_3d.gif" width="400">
+    </td>
+    <td align="center" width="50%">
+      <b>Simulation</b><br>
+      <img src="assets/simulation.gif" width="400">
+    </td>
+  </tr>
+</table>
  
 ---
  
@@ -57,7 +63,7 @@ Cricket_Analytics/
 The `main.py` entry point runs a configurable set of stages via flags:
  
 ```bash
-python main.py --input demo/cric.mp4 --rally_segment --player_det --pose_est --animate
+python main.py --input demo/sample.mp4 --rally_segment --player_det --pose_est --animate
 ```
 
 ### Arguments
@@ -69,24 +75,6 @@ python main.py --input demo/cric.mp4 --rally_segment --player_det --pose_est --a
 | `--player_det` | Detect bowler and batsman; outputs video + keypoints JSON |
 | `--pose_est` | Perform pose estimation on detected player clips; outputs JSON + NPZ for 3D estimation |
 | `--animate` | Generate 3D pose predictions and save animation frames |
-
----
-
-## 🧠 Modules
-
-### Rally Segmentation
-- `segment_video(video_path, output_dir)`
-- `classify_all_videos(folder_path)`
-
-### Player Detection
-- `detect(input_folder, output_folder)`
-
-### Pose Estimation
-- `pose_estimation(video_path, json_path, output_dir, label)`
-- `convert_json_to_h36m_npz(json_path, output_dir, label)`
-
-### Animation
-- `get_pose3D(video_path, keypoints_npz_path, output_dir)`
 
 ---
 
@@ -110,12 +98,14 @@ python main.py --input demo/cric.mp4 --rally_segment --player_det --pose_est --a
 
 ---
 
-## 🏁 Example
 
-```bash
-python main.py --input demo/sample_match.mp4 --rally_segment --pose_est
-```
-
----
-
-
+## 🤝 Let's Connect
+ 
+If you'd like to discuss this project, potential collaborations, or
+licensing - feel free to reach out.
+ 
+<p>
+  <a href="https://www.linkedin.com/in/shubham-aggarwal-a63b40276">
+    <img src="https://img.shields.io/badge/Follow%20on-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />
+  </a>
+</p>
