@@ -36,19 +36,27 @@ Cricket_Analytics/
 ```
 ---
 
-## 🚀 Getting Started
-
-### Download pretrained model for pose estimation
-
-The pretrained model can be found [here](https://drive.google.com/file/d/1kJzGsorMPydMSKOZzFKNYXGWjpmIB4ge/view?usp=sharing). Download it and place it in `models/ViTPose/`.
-
+## 🎬 Results
+ 
+> Pretrained model weights are **not distributed** in this repository
+> (patent-pending components). The clips/images below showcase the
+> pipeline's output on sample footage.
+ 
+| Stage | Output |
+|---|---|
+| Rally Segmentation | *[add a short clip/gif showing rally vs. non-rally classification]* |
+| Player Detection | *[add a frame/clip with bowler + batsman bounding boxes]* |
+| Pose Estimation | *[add a frame/clip with 2D keypoints overlaid]* |
+| 3D Animation | *[add a frame/gif of the 3D pose animation]* |
+ 
+ 
+---
+ 
+## ⚙️ Pipeline Overview
+ 
+The `main.py` entry point runs a configurable set of stages via flags:
+ 
 ```bash
-# Install dependencies
-pip install -r requirements.txt
-```
-
-```bash
-# Run the pipeline
 python main.py --input demo/cric.mp4 --rally_segment --player_det --pose_est --animate
 ```
 
