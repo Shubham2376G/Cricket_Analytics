@@ -1,14 +1,5 @@
 # Cricket Analytics Pipeline 🏏
 
-> **⚠️ Patent Pending — All Rights Reserved.**
-> This repository is public for **portfolio/demonstration purposes only**.
-> No part of this code may be used, copied, modified, or redistributed
-> without written permission. See [LICENSE](./LICENSE) and [NOTICE.md](./NOTICE.md).
-
-A modular and configurable video analytics pipeline for cricket, including
-rally segmentation, player detection, pose estimation, and 3D animation.
-
----
 
 ## 📂 Project Structure
 
@@ -40,14 +31,9 @@ Cricket_Analytics/
 ├── main.py                 # Entry point (modularized pipeline)
 ├── requirements.txt        # Python dependencies
 ├── LICENSE                 # All-rights-reserved license
-├── NOTICE.md               # Patent-pending notice
 ├── .gitignore
 └── README.md
 ```
-
-> Note: `videos/`, `results/`, and downloaded model checkpoints are
-> gitignored — they're generated/downloaded locally, not tracked in the repo.
-
 ---
 
 ## 🚀 Getting Started
@@ -125,10 +111,4 @@ python main.py --input demo/sample_match.mp4 --rally_segment --pose_est
 
 ---
 
-## License & Patent Notice
 
-This project is **not open source**. It is shared publicly for portfolio
-and demonstration purposes only, and one or more components are subject
-to a pending patent application. See [LICENSE](./LICENSE) and
-[NOTICE.md](./NOTICE.md) for full terms. For collaboration or licensing
-inquiries, please contact the author directly.
