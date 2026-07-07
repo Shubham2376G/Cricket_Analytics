@@ -15,7 +15,7 @@ Cricket_Analytics/
 │       │                       #   contour_detector.py, hsv_filter.py,
 │       │                       #   background_subtractor.py
 │       ├── pose/               # Pose estimation
-│       │                       #   pose_estimationv1.py, pose_estimationv1collab.py
+│       │                       #   pose_estimationv1.py
 │       ├── animation/          # 3D animation & plotting
 │       │                       #   animation_plotly.py, full_animation.py
 │       └── bowling/            # Bowling angle analysis
@@ -95,7 +95,6 @@ python main.py --input demo/cric.mp4 --rally_segment --player_det --pose_est --a
 | `detection/hsv_filter.py` | HSV filter tuning utility |
 | `detection/background_subtractor.py` | Background subtraction utility |
 | `pose/pose_estimationv1.py` | Pose estimation pipeline |
-| `pose/pose_estimationv1collab.py` | Pose estimation pipeline (Colab variant) |
 | `animation/animation_plotly.py` | 3D animation plotting using Plotly |
 | `animation/full_animation.py` | Full 3D animation visualization |
 | `bowling/bowl_angle_LH.py` | Bowling angle analysis (left-handed) |
